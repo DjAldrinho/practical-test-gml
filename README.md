@@ -24,7 +24,7 @@ git clone https://github.com/DjAldrinho/practical-test-gml.git
 ### Documentacion
 
 ```
-  http://localhost:8080/api/swagger-ui/index.html#/
+http://localhost:8080/api/swagger-ui/index.html#/
 ```
 
 

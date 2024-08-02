@@ -34,8 +34,6 @@ public class ClientServiceImpl implements IClientService {
         log.info("Retornando lista de clientes {}", clients.size());
 
         return clients.stream().map((client) -> modelMapper.map(client, ClientDto.class)).collect(Collectors.toList());
-
-
     }
 
     @Override

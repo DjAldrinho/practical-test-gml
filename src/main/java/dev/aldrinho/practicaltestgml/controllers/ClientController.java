@@ -5,7 +5,6 @@ import dev.aldrinho.practicaltestgml.dto.ClientSearchDto;
 import dev.aldrinho.practicaltestgml.dto.CreateClientDto;
 import dev.aldrinho.practicaltestgml.dto.ResponseDto;
 import dev.aldrinho.practicaltestgml.exceptions.ResourceExistsException;
-import dev.aldrinho.practicaltestgml.models.Client;
 import dev.aldrinho.practicaltestgml.services.IClientService;
 import dev.aldrinho.practicaltestgml.utils.ExcelUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,7 +48,7 @@ public class ClientController {
 
     @Operation(summary = "Create a new client")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseDto> createHero(@Valid @RequestBody CreateClientDto createClientDto) {
+    public ResponseEntity<ResponseDto> createClient(@Valid @RequestBody CreateClientDto createClientDto) {
         log.info("Entrando a POST /api/clients");
         log.info("Nuevo cliente: {}", createClientDto);
 
@@ -102,6 +101,5 @@ public class ClientController {
         ExcelUtil.exportToExcel(response, clients);
         log.info("Exportacion completa");
     }
-
 
 }
