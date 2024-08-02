@@ -16,9 +16,9 @@ public interface IClientRepository extends JpaRepository<Client, Long> {
 
     List<Client> findClientsBySharedKeyContainsIgnoreCase(String sharedKey);
 
-    List<Client> findClientsByEmail(String email);
+    List<Client> findClientsByEmailContainingIgnoreCase(String email);
 
-    List<Client> findClientsByPhone(String phone);
+    List<Client> findClientsByPhoneContains(String phone);
 
     @Query("SELECT c FROM Client c WHERE c.dataAdded BETWEEN :startDate AND :endDate")
     List<Client> findByDateAddedBetween(@Param("startDate") Date startDate, @Param("endDate") Date endDate);

@@ -133,7 +133,7 @@ public class ClientServiceImplTest {
     void testGetClientsByEmail() {
         String email = client2.getEmail();
 
-        when(clientRepository.findClientsByEmail(email)).thenReturn(Collections.singletonList(client2));
+        when(clientRepository.findClientsByEmailContainingIgnoreCase(email)).thenReturn(Collections.singletonList(client2));
 
         when(modelMapper.map(client2, ClientDto.class)).thenReturn(clientDto2);
 
@@ -148,7 +148,7 @@ public class ClientServiceImplTest {
     @Test
     void testGetClientsByEmailEmpty() {
         String email = "email3";
-        when(clientRepository.findClientsByEmail(email)).thenReturn(Collections.emptyList());
+        when(clientRepository.findClientsByEmailContainingIgnoreCase(email)).thenReturn(Collections.emptyList());
         List<ClientDto> clients = clientService.getClientsByEmail(email);
         assertNotNull(clients);
         assertEquals(0, clients.size());
@@ -181,7 +181,7 @@ public class ClientServiceImplTest {
     @Test
     void testGetClientsByPhone() {
         String phone = clientDto1.getPhone();
-        when(clientRepository.findClientsByPhone(phone)).thenReturn(Collections.singletonList(client1));
+        when(clientRepository.findClientsByPhoneContains(phone)).thenReturn(Collections.singletonList(client1));
         when(modelMapper.map(client1, ClientDto.class)).thenReturn(clientDto1);
 
         List<ClientDto> clients = clientService.getClientsByPhone(phone);
@@ -195,7 +195,7 @@ public class ClientServiceImplTest {
     @Test
     void testGetClientsByPhoneEmpty() {
         String phone = "phone3";
-        when(clientRepository.findClientsByPhone(phone)).thenReturn(Collections.emptyList());
+        when(clientRepository.findClientsByPhoneContains(phone)).thenReturn(Collections.emptyList());
         List<ClientDto> clients = clientService.getClientsByPhone(phone);
         assertNotNull(clients);
         assertEquals(0, clients.size());

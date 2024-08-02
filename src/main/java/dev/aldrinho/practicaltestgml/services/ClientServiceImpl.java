@@ -49,7 +49,7 @@ public class ClientServiceImpl implements IClientService {
     @Override
     public List<ClientDto> getClientsByEmail(String email) {
         log.info("Llamando al metodo getClientsByEmail");
-        List<Client> clients = repository.findClientsByEmail(email);
+        List<Client> clients = repository.findClientsByEmailContainingIgnoreCase(email);
         log.info("Retornando lista de clientes {}", clients.size());
         return clients.stream().map((client) -> modelMapper
                         .map(client, ClientDto.class))
@@ -69,7 +69,7 @@ public class ClientServiceImpl implements IClientService {
     @Override
     public List<ClientDto> getClientsByPhone(String phone) {
         log.info("Llamando al metodo getClientsByPhone");
-        List<Client> clients = repository.findClientsByPhone(phone);
+        List<Client> clients = repository.findClientsByPhoneContains(phone);
         log.info("Retornando lista de clientes {}", clients.size());
         return clients.stream().map((client) -> modelMapper
                         .map(client, ClientDto.class))
