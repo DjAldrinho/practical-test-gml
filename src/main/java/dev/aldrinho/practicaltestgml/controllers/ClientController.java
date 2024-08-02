@@ -5,9 +5,12 @@ import dev.aldrinho.practicaltestgml.dto.ClientSearchDto;
 import dev.aldrinho.practicaltestgml.dto.CreateClientDto;
 import dev.aldrinho.practicaltestgml.dto.ResponseDto;
 import dev.aldrinho.practicaltestgml.exceptions.ResourceExistsException;
+import dev.aldrinho.practicaltestgml.models.Client;
 import dev.aldrinho.practicaltestgml.services.IClientService;
+import dev.aldrinho.practicaltestgml.utils.ExcelUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -76,8 +80,7 @@ public class ClientController {
             case "sharedKey" -> service.getClientsBySharedKey(clientSearchDto.getValue());
             case "email" -> service.getClientsByEmail(clientSearchDto.getValue());
             case "phone" -> service.getClientsByPhone(clientSearchDto.getValue());
-            case "dataAdded" ->
-                    service.getClientsByDateAdded(clientSearchDto.getValue(), clientSearchDto.getValue2());
+            case "dataAdded" -> service.getClientsByDateAdded(clientSearchDto.getValue(), clientSearchDto.getValue2());
             default -> List.of();
         };
 
@@ -88,6 +91,16 @@ public class ClientController {
                         .message("Clientes listados")
                         .build()
         );
+    }
+
+    @Operation(summary = "Export clients to CSV")
+    @GetMapping("/export-csv")
+    public void exportToCSV(HttpServletResponse response) throws IOException {
+        log.info("Entrando a GET /api/clients/export-csv");
+        List<ClientDto> clients = service.getClients();
+        log.info("Exportando clientes CSV");
+        ExcelUtil.exportToExcel(response, clients);
+        log.info("Exportacion completa");
     }
 
 

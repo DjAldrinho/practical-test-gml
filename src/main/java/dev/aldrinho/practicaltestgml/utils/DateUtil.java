@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Slf4j
-public class DateUtils {
+public class DateUtil {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 

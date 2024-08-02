@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static dev.aldrinho.practicaltestgml.utils.DateUtils.parseDate;
+import static dev.aldrinho.practicaltestgml.utils.DateUtil.parseDate;
 
 @Service
 @RequiredArgsConstructor
