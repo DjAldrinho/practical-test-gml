@@ -2,11 +2,9 @@ package dev.aldrinho.practicaltestgml.services;
 
 import dev.aldrinho.practicaltestgml.dto.ClientDto;
 import dev.aldrinho.practicaltestgml.dto.CreateClientDto;
-import dev.aldrinho.practicaltestgml.dto.UpdateClientDto;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public interface IClientService {
     List<ClientDto> getClients();
@@ -19,7 +17,7 @@ public interface IClientService {
 
     List<ClientDto> getClientsByPhone(String phone);
 
-    List<ClientDto> getClientsByDateAddBetweenStartAndEnd(Date startDate, Date endDate);
+    List<ClientDto> getClientsByDateAdded(String startDate, String endDate);
 
     ClientDto saveClient(CreateClientDto createClientDto);
 }

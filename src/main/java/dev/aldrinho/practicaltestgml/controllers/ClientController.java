@@ -1,6 +1,7 @@
 package dev.aldrinho.practicaltestgml.controllers;
 
 import dev.aldrinho.practicaltestgml.dto.ClientDto;
+import dev.aldrinho.practicaltestgml.dto.ClientSearchDto;
 import dev.aldrinho.practicaltestgml.dto.CreateClientDto;
 import dev.aldrinho.practicaltestgml.dto.ResponseDto;
 import dev.aldrinho.practicaltestgml.exceptions.ResourceExistsException;
@@ -65,16 +66,18 @@ public class ClientController {
     }
 
     @Operation(summary = "Search clients by various parameters")
-    @GetMapping("/search")
-    public ResponseEntity<ResponseDto> searchClients(@RequestParam String param, @RequestParam String value) {
+    @PostMapping(value = "/search", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseDto> searchClients(@RequestBody ClientSearchDto clientSearchDto) {
 
-        log.info("Entrando a GET /api/clients/search");
+        log.info("Entrando a POST /api/clients/search");
 
-        List<ClientDto> clients = switch (param) {
-            case "businessId" -> service.getClientsByBusinessId(value);
-            case "sharedKey" -> service.getClientsBySharedKey(value);
-            case "email" -> service.getClientsByEmail(value);
-            case "phone" -> service.getClientsByPhone(value);
+        List<ClientDto> clients = switch (clientSearchDto.getParam()) {
+            case "businessId" -> service.getClientsByBusinessId(clientSearchDto.getValue());
+            case "sharedKey" -> service.getClientsBySharedKey(clientSearchDto.getValue());
+            case "email" -> service.getClientsByEmail(clientSearchDto.getValue());
+            case "phone" -> service.getClientsByPhone(clientSearchDto.getValue());
+            case "dataAdded" ->
+                    service.getClientsByDateAdded(clientSearchDto.getValue(), clientSearchDto.getValue2());
             default -> List.of();
         };
 

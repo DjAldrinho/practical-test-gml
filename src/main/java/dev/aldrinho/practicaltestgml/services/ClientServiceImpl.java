@@ -10,9 +10,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static dev.aldrinho.practicaltestgml.utils.DateUtils.parseDate;
 
 @Service
 @RequiredArgsConstructor
@@ -76,13 +79,29 @@ public class ClientServiceImpl implements IClientService {
     }
 
     @Override
-    public List<ClientDto> getClientsByDateAddBetweenStartAndEnd(Date startDate, Date endDate) {
-        log.info("Llamando al metodo getClientsByDateAddBetweenStartAndEnd");
-        List<Client> clients = repository.findByDateAddedBetween(startDate, endDate);
-        log.info("Retornando lista de clientes {}", clients.size());
-        return clients.stream().map((client) -> modelMapper
-                        .map(client, ClientDto.class))
-                .collect(Collectors.toList());
+    public List<ClientDto> getClientsByDateAdded(String startDateStr, String endDateStr) {
+
+        log.info("Llamando al metodo getClientsByDateAdded");
+
+        Date startDate = parseDate(startDateStr);
+        Date endDate = parseDate(endDateStr);
+
+        List<Client> clients = new ArrayList<>();
+
+        if (startDate != null && endDate != null) {
+            clients = repository.findByDateAddedBetween(startDate, endDate);
+        } else if (startDate != null) {
+            clients = repository.findByDateAddedAfter(startDate);
+        } else if (endDate != null) {
+            clients = repository.findByDateAddedBefore(endDate);
+        }
+
+        if (!clients.isEmpty()) {
+            log.info("Clientes encontrados {}", clients.size());
+            return clients.stream().map(client -> modelMapper.map(client, ClientDto.class)).collect(Collectors.toList());
+        }
+
+        return List.of();
     }
 
 

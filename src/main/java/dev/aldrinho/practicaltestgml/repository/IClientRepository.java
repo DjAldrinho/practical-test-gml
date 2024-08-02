@@ -13,9 +13,19 @@ import java.util.List;
 public interface IClientRepository extends JpaRepository<Client, Long> {
 
     List<Client> findClientsByBusinessIdContainsIgnoreCase(String businessId);
+
     List<Client> findClientsBySharedKeyContainsIgnoreCase(String sharedKey);
+
     List<Client> findClientsByEmail(String email);
+
     List<Client> findClientsByPhone(String phone);
+
     @Query("SELECT c FROM Client c WHERE c.dataAdded BETWEEN :startDate AND :endDate")
     List<Client> findByDateAddedBetween(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+    @Query("SELECT c FROM Client c WHERE c.dataAdded >= :startDate")
+    List<Client> findByDateAddedAfter(@Param("startDate") Date startDate);
+
+    @Query("SELECT c FROM Client c WHERE c.dataAdded <= :endDate")
+    List<Client> findByDateAddedBefore(@Param("endDate") Date endDate);
 }
