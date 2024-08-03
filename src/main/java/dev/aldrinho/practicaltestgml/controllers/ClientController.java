@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"*"})
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Client", description = "API for client operations")
