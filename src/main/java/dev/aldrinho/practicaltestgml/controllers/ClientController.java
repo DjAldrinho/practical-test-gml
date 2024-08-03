@@ -22,7 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = {"http://localhost:8080","http://localhost:4200", "https://practical-test-gml-production.up.railway.app", "https://peaceful-flan-76c4f6.netlify.app"})
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Client", description = "API for client operations")
