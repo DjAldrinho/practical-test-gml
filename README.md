@@ -27,4 +27,19 @@ git clone https://github.com/DjAldrinho/practical-test-gml.git
 http://localhost:8080/api/swagger-ui/index.html#/
 ```
 
+### Base de datos
+
+Ingresar a 
+
+```
+https://pgadmin-production-4a10.up.railway.app/browser/
+```
+
+Con las credenciales
+
+```
+email: aldray.devsoft@gmail.com
+password: secret
+```
+
 
